@@ -91,5 +91,5 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## Acknowledgments
 
-- JigsawStack for providing the AI services
+- The JigsawStack team for providing the incredable AI-powered API services
 - The Next.js team for their excellent framework
