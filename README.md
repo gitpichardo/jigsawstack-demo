@@ -4,6 +4,12 @@
 
 This application demonstrates a selction of JigsawStacks various AI-powered tools and services. This project serves as a demonstration and testing ground for developers interested in integrating JigsawStacks AI-powered APIs into their applications.
 
+## Video Demo
+
+[![JigsawStack Demo]([https://www.loom.com/share/537f6dc836a2438b83ddc8d79938ece5?sid=8e9dc689-3e5e-4473-b852-68627e337ffb])
+
+Click to watch a demo of the JigsawStacks AI-Powered APIs in action. This video showcases the key features of my application, including the AI Prompt Engine, Web Scraper, Text Summarizer, and Image Generation tools.
+
 ## Features
 
 - **AI Prompt Engine**: Create and run custom AI prompts with dynamic input fields.
