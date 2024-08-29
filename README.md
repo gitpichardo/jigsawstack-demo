@@ -2,7 +2,7 @@
 
 ## Overview
 
-This application demonstrates a selction of JigsawStacks various AI-powered tools and services. This project serves as a demonstration and testing ground for developers interested in integrating JigsawStacks AI-powered APIs into their applications. Vist the application [here](https://jigsawstack-demo.vercel.app/)
+This application demonstrates a selction of JigsawStacks various AI-powered tools and services. This project serves as a demonstration and testing ground for developers interested in integrating JigsawStacks AI-powered APIs into their applications. Vist the application [here](https://jigsawstack-demo.vercel.app/).
 
 ## Video
 
