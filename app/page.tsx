@@ -45,6 +45,8 @@ export default function Home() {
   const [inputs, setInputs] = useState<{ key: string; value: string }[]>([]);
   const [darkMode, setDarkMode] = useState(false);
   const [imageResult, setImageResult] = useState<string | null>(null);
+  
+
 
   // Clean up image URL when component unmounts or result changes
   useEffect(() => {
@@ -75,12 +77,37 @@ export default function Home() {
   };
   
    // Function to format and sanitize output text
-  const formatOutput = (output: string) => {
-    // Remove special characters except for common punctuation
+   const formatOutput = (output: any): string => {
+    if (typeof output !== 'string') {
+      // For non-string output, create a more readable format
+      return formatNonStringOutput(output);
+    }
+
+    // For string output, apply the existing formatting
     const sanitized = output.replace(/[^\w\s.,!?;:'"()-]/g, '');
-    // Split into paragraphs for better readability
-    return sanitized.split('\n').map(paragraph => paragraph.trim()).join('\n\n');
+    const lines = sanitized.split('\n').map(line => line.trim()).filter(line => line !== '');
+    const formattedLines = lines.reduce((acc, line, index) => {
+      if (index === 0) return line;
+      if (line === '' && acc.endsWith('\n')) return acc;
+      return acc + '\n' + line;
+    }, '');
+
+    return formattedLines.replace(/(\S+)\n(\S+)/g, '$1\n\n$2');
   };
+
+  // Helper function to format non-string output
+  const formatNonStringOutput = (output: any): string => {
+    if (Array.isArray(output)) {
+      return output.map((item, index) => `${index + 1}. ${formatNonStringOutput(item)}`).join('\n');
+    } else if (typeof output === 'object' && output !== null) {
+      return Object.entries(output)
+        .map(([key, value]) => `${key}: ${formatNonStringOutput(value)}`)
+        .join('\n');
+    } else {
+      return String(output);
+    }
+  };
+
   // Handler for changing tabs
   const handleTabChange = (tab: string) => {
     setActiveTab(tab);
@@ -96,29 +123,37 @@ export default function Home() {
         throw new Error('Prompt is required');
       }
   
+      const requestBody = {
+        query: prompt,
+        inputs: inputs.map(input => ({ key: input.key, value: input.value })),
+        return_prompt: { result: "The generated content" }
+      };
+  
+      console.log('Sending request:', requestBody);
+  
       const response = await fetch('/api/prompt-engine/create-and-run', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ 
-          query: prompt,
-          inputs: inputs.reduce((acc, input) => {
-            if (input.key && input.value) {
-              acc[input.key] = input.value;
-            }
-            return acc;
-          }, {} as Record<string, string>)
-        }),
+        body: JSON.stringify(requestBody),
       });
-      
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.error || 'An error occurred');
-      }
-      
+  
       const data = await response.json();
+  
+      if (!response.ok) {
+        console.error('API response error:', data);
+        throw new Error(data.error || 'An error occurred');
+      }
+  
+      console.log('API response:', data);
+  
+      // Remove 'result:' from the output
+      const outputContent = data.result && typeof data.result === 'object' && 'result' in data.result
+        ? data.result.result
+        : data.result;
+
       setResult({ 
         message: 'Prompt executed successfully',
-        output: formatOutput(data.result)
+        output: outputContent ? formatOutput(outputContent) : 'No content generated'
       });
     } catch (error) {
       console.error('Error creating and running prompt:', error);
@@ -126,8 +161,9 @@ export default function Home() {
         error: 'Failed to create and run prompt', 
         details: error instanceof Error ? error.message : String(error)
       });
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
   };
 
   // Handlers for AI web scraper functionality

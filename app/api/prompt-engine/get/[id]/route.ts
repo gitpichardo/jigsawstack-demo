@@ -1,9 +1,14 @@
 import { NextResponse } from 'next/server';
 
-// API route for retrieving a specific prompt from the JigsawStack Prompt Engine
-export async function GET(request: Request, { params }: { params: { id: string } }) {
+export async function GET(request: Request) {
   try {
-    // Set up headers for JigsawStack API request
+    const { searchParams } = new URL(request.url);
+    const id = searchParams.get('id');
+
+    if (!id) {
+      return NextResponse.json({ error: 'Prompt ID is required' }, { status: 400 });
+    }
+
     const headers = new Headers();
     headers.append("content-type", "application/json");
     headers.append("x-api-key", process.env.JIGSAWSTACK_API_KEY || '');
@@ -13,10 +18,8 @@ export async function GET(request: Request, { params }: { params: { id: string }
       headers: headers,
     };
 
-    // Construct URL with the prompt ID
-    const url = new URL(`https://api.jigsawstack.com/v1/prompt_engine/${params.id}`);
+    const url = new URL(`https://api.jigsawstack.com/v1/prompt_engine/${id}`);
 
-    // Send GET request to JigsawStack API
     const response = await fetch(url, requestOptions);
 
     if (!response.ok) {
