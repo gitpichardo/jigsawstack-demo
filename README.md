@@ -1,4 +1,4 @@
-# JigsawStacks AI Powered API Demo
+# SmartAI Hub
 
 ## Overview
 
