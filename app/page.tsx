@@ -314,7 +314,7 @@ export default function Home() {
     <main className={`min-h-screen flex flex-col ${darkMode ? 'bg-gray-900 text-gray-200' : 'bg-gray-100 text-gray-800'}`}>
       <nav className={`p-4 ${darkMode ? 'bg-gray-800' : 'bg-white'} shadow-md`}>
         <div className="max-w-7xl mx-auto flex justify-between items-center">
-          <h1 className={`text-2xl font-bold ${darkMode ? 'text-gray-200' : 'text-gray-700'}`}>JigsawStacks AI Powered APIs</h1>
+          <h1 className={`text-2xl font-bold ${darkMode ? 'text-gray-200' : 'text-gray-700'}`}>SmartAI Hub</h1>
           <button onClick={() => setDarkMode(!darkMode)} className="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700">
             {darkMode ? <Sun size={24} className="text-gray-300" /> : <Moon size={24} className="text-gray-600" />}
           </button>
