@@ -6,7 +6,7 @@ This application demonstrates a selction of JigsawStacks various AI-powered tool
 
 ## Video
 
-Click [here](https://www.loom.com/share/537f6dc836a2438b83ddc8d79938ece5?sid=8e9dc689-3e5e-4473-b852-68627e337ffb) to watch a live demo of the JigsawStacks AI-Powered APIs in action. This video showcases the key features of my application, including the AI Prompt Engine, Web Scraper, Text Summarizer, and Image Generation tools.
+Click [here](https://www.loom.com/share/537f6dc836a2438b83ddc8d79938ece5?sid=8e9dc689-3e5e-4473-b852-68627e337ffb) to watch a live demo of JigsawStacks' AI-powered APIs in action. This video showcases the key features of my application, including the AI Prompt Engine, Web Scraper, Text Summarizer, and Image Generation tools.
 
 ## Features
 
